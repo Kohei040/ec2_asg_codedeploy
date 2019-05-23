@@ -1,6 +1,13 @@
 # AWS Code Series
 ___
 
+- 事前準備
+  - AWS account
+  - アプリケーションのソースコードを保存するS3バケット
+  - 作業用PCにAWS CLIをインストール
+  - 作業用PCへGit(ver1.7.9以降)インストール
+    - [Gitのダウンロードはこちら](https://git-scm.com/downloads)
+
 ##  CodeCommit [(Document)](https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/welcome.html)
 ___
 
@@ -10,9 +17,7 @@ ___
   - IAM Policyは[AWSCodeCommitFullAccess]を付与
 - CodecomitへのHTTPS接続用のGit認証情報を作成
   - [IAM User] -> [認証情報] -> [AWS CodeCommit の HTTPS Git 認証情報] -> [生成]
--  作業用PCへGit(ver1.7.9以降)インストール
-  - [Gitのダウンロードはこちら](https://git-scm.com/downloads)
-- 作業用PCにAWS CLIをインストール&設定
+
 
 ### CodeCommitの利用(AWS CLI)
 
@@ -54,7 +59,9 @@ origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (push
 ## CodeBuild [(Document)](https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/welcome.html)
 ___
 
-今回はCodeDeploy用のファイルを
+### EC2 AutoScaling環境
+
+- Codebuild作成
 
 
 ## CodeDeploy [(Document)](https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/welcome.html)
@@ -90,7 +97,7 @@ $ aws iam add-role-to-instance-profile --instance-profile-name DemoCodeDeployEC2
 - EC2 AutoScaling グループの作成
 
 ```
-# LanuchConfig作成
+# LanuchConfig作成...UserdataにてCodeDeployのエージェントを設定
 $ aws autoscaling create-launch-configuration --launch-configuration-name demo-codedeploy-lc --image-id image-id --key-name key-name --iam-instance-profile DemoCodeDeployEC2Profile --instance-type t1.micro --user-data file://EC2/instance-setup.sh
 
 # AutoScalingGroup作成
@@ -115,6 +122,9 @@ $ aws deploy create-deployment --application-name DemoAsgApp --deployment-config
 
 ## CodePipeline [(Document)](https://docs.aws.amazon.com/ja_jp/codepipeline/latest/userguide/welcome.html)
 ___
+
+### EC2 AutoScaling環境
+
 
 ### CodePipelineの利用(Console)
 
