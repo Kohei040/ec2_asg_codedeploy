@@ -1,7 +1,7 @@
 # AWS Code Series
 ___
 
-##  CodeCommit[Document](https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/welcome.html)
+##  CodeCommit [(Document)](https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/welcome.html)
 ___
 
 ### CodeCommit利用(HTTPS接続)の事前準備
@@ -51,12 +51,12 @@ origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (fetc
 origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (push)
 ```
 
-## CodeBuild[Document]()
+## CodeBuild [(Document)](https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/welcome.html)
 ___
 
 
 
-## CodeDeploy[Document](https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/welcome.html)
+## CodeDeploy [(Document)](https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/welcome.html)
 ___
 
 ### CodeDeployの事前準備
@@ -82,7 +82,6 @@ $ aws iam create-role --role-name DemoEC2CodeDeployRole --assume-role-policy-doc
 
 # EC2用IAM RoleにS3参照用のPolicyを付与
 $ aws iam put-role-policy --role-name DemoEC2CodeDeployRole --policy-name DemoEC2Permissions --policy-document file://IAM/ec2-codedeploy-policy.json
-
 $ aws iam create-instance-profile --instance-profile-name CodeDeployDemo-EC2-Instance-Profile
 $ aws iam add-role-to-instance-profile --instance-profile-name CodeDeployDemo-EC2-Instance-Profile --role-name DemoEC2CodeDeployRole
 ```
@@ -95,7 +94,7 @@ $ aws iam add-role-to-instance-profile --instance-profile-name CodeDeployDemo-EC
 ### ECS環境
 
 
-## CodePipeline[Document](https://docs.aws.amazon.com/ja_jp/codepipeline/latest/userguide/welcome.html)
+## CodePipeline [(Document)](https://docs.aws.amazon.com/ja_jp/codepipeline/latest/userguide/welcome.html)
 ___
 
 ### CodePipelineの利用(Console)
