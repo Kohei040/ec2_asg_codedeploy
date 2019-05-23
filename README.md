@@ -54,12 +54,11 @@ origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (push
 ## CodeBuild [(Document)](https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/welcome.html)
 ___
 
+今回はCodeDeploy用のファイルを
 
 
 ## CodeDeploy [(Document)](https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/welcome.html)
 ___
-
-### CodeDeployの事前準備
 
 - CodeDeploy用IAM Role作成
 
@@ -82,14 +81,34 @@ $ aws iam create-role --role-name DemoEC2CodeDeployRole --assume-role-policy-doc
 
 # EC2用IAM RoleにS3参照用のPolicyを付与
 $ aws iam put-role-policy --role-name DemoEC2CodeDeployRole --policy-name DemoEC2Permissions --policy-document file://IAM/ec2-codedeploy-policy.json
-$ aws iam create-instance-profile --instance-profile-name CodeDeployDemo-EC2-Instance-Profile
-$ aws iam add-role-to-instance-profile --instance-profile-name CodeDeployDemo-EC2-Instance-Profile --role-name DemoEC2CodeDeployRole
+$ aws iam create-instance-profile --instance-profile-name DemoCodeDeployEC2Profile
+$ aws iam add-role-to-instance-profile --instance-profile-name DemoCodeDeployEC2Profile --role-name DemoEC2CodeDeployRole
 ```
 
 ### EC2 AutoScaling環境
 
-- アプリケーションの作成
+- EC2 AutoScaling グループの作成
 
+```
+# LanuchConfig作成
+$ aws autoscaling create-launch-configuration --launch-configuration-name demo-codedeploy-lc --image-id image-id --key-name key-name --iam-instance-profile DemoCodeDeployEC2Profile --instance-type t1.micro --user-data file://EC2/instance-setup.sh
+
+# AutoScalingGroup作成
+$ aws autoscaling create-auto-scaling-group --auto-scaling-group-name demo-codedeploy-asg --launch-configuration-name demo-codedeploy-lc --min-size 1 --max-size 1 --desired-capacity 1 --availability-zones us-east-1a us-east-1b
+```
+
+- Codedeploy作成
+
+```
+# アプリケーション作成
+$ aws deploy create-application --application-name DemoAsgApp
+
+# デプロイグループの作成
+$ aws deploy create-deployment-group --application-name DemoAsgApp --auto-scaling-groups demo-codedeploy-asg --deployment-group-name DemoAsgDG --deployment-config-name CodeDeployDefault.OneAtATime --service-role-arn service-role-arn
+
+# デプロイの実行
+$ aws deploy create-deployment --application-name DemoAsgApp --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name DemoAsgDG --s3-location bucket=aws-codedeploy-us-east-1,bundleType=zip,key=samples/latest/SampleApp_Linux.zip
+```
 
 ### ECS環境
 
@@ -100,6 +119,6 @@ ___
 ### CodePipelineの利用(Console)
 
 - CodePipelineの作成
-  - ソースはCodeCommiを選択し、上記で作成したリポジトリを選択
+  - ソースはCodeCommitを選択し、上記で作成したリポジトリを選択
   - 検出オプションは"CloudWatch Events"を選択
     - CodeCommitに対して変更があった場合に実行される
