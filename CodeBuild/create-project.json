@@ -1,114 +1,16 @@
 {
-  "name": "project-name",
-  "description": "description",
+  "name": "demo-codebuild",
+  "description": "Demonstration",
   "source": {
-    "type": "source-type",
-    "location": "source-location",
-    "gitCloneDepth": "gitCloneDepth",
-    "buildspec": "buildspec",
-    "InsecureSsl": "InsecureSsl",
-    "reportBuildStatus": reportBuildStatus",
-    "gitSubmodulesConfig": {
-      "fetchSubmodules": "fetchSubmodules"
-    },
-    "auth": {
-      "type": "auth-type",
-      "resource": "resource"
-    }
-  },
-  "artifacts": {
-    "type": "artifacts-type",
-    "location": "artifacts-location",
-    "path": "path",
-    "namespaceType": "namespaceType",
-    "name": "artifacts-name",
-    "overrideArtifactName": "override-artifact-name",
-    "packaging": "packaging"
-  },
-  "cache": {
-    "type": "cache-type",
-    "location": "cache-location",
-    "mode": [
-      "cache-mode"
-    ]
+    "type": "CODECOMMIT",
+    "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/TestIwasaki",
+    "buildspec": "./CodeBuild/buildspec.yml"
   },
   "logsConfig": {
     "cloudWatchLogs": {
-      "status": "cloudwatch-logs-status",
-      "groupName": "group-name",
-      "streamName": "stream-name"
+      "status": "ENABLED",
+      "groupName": "demo-codebuild-iwasaki"
     }
-    "s3Logs": {
-      "status": "s3-logs-status",
-      "location": "s3-logs-location",
-      "encryptionDisabled": "s3-logs-encryptionDisabled"
-    }
-  }
-  "secondaryArtifacts": [
-    {
-        "type": "artifacts-type",
-        "location": "artifacts-location",
-        "path": "path",
-        "namespaceType": "namespaceType",
-        "name": "artifacts-name",
-        "packaging": "packaging",
-        "artifactIdentifier": "artifact-identifier"
-    }
-  ]
-  ,
-  "secondarySources": [
-    {
-        "type": "source-type",
-        "location": "source-location",
-        "gitCloneDepth": "gitCloneDepth",
-        "buildspec": "buildspec",
-        "InsecureSsl": "InsecureSsl",
-        "reportBuildStatus": "reportBuildStatus",
-        "auth": {
-          "type": "auth-type",
-          "resource": "resource"
-        },
-        "sourceIdentifier": "source-identifier"
-    }
-  ],
-  "serviceRole": "serviceRole",
-  "vpcConfig": {
-    "securityGroupIds": [
-         "security-group-id"
-    ],
-    "subnets": [
-         "subnet-id"
-    ],
-    "vpcId": "vpc-id"
   },
-  "timeoutInMinutes": timeoutInMinutes,
-  "encryptionKey": "encryptionKey",
-  "tags": [
-    {
-      "key": "tag-key",
-      "value": "tag-value"
-    }
-  ],
-  "environment": {
-    "type": "environment-type",
-    "image": "image",
-    "computeType": "computeType",
-    "certificate": "certificate",
-    "environmentVariables": [
-      {
-        "name": "environmentVariable-name",
-        "value": "environmentVariable-value",
-        "type": "environmentVariable-type"
-      }
-    ],
-    "registryCredential": [
-      {
-        "credential": "credential-arn-or-name",
-        "credentialProvider": "credential-provider"
-      }
-    ],
-    "imagePullCredentialsType": "imagePullCredentialsType-value,
-    "privilegedMode": "privilegedMode"
-  },
-  "badgeEnabled": "badgeEnabled"
+  "serviceRole": "demo-codebui-iwasaki-role"
 }

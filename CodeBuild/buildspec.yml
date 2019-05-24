@@ -8,17 +8,11 @@ phases:
       - apt-get install -y zip
     finally:
       - echo This always runs even if the update or install command fails
-  # pre_build:
-  #   commands:
-  #     - echo Entered the pre_build phase...
-  #     - docker login –u User –p $LOGIN_PASSWORD
-  #   finally:
-  #     - echo This always runs even if the login command fails
   build:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - zip -r SampleApp.zip ./CodeDeploy
+      - zip -r SampleApp.zip ./CodeDeploy/
     finally:
       - echo This always runs even if the install command fails
   post_build:
