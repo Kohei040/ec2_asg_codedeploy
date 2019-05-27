@@ -1,0 +1,87 @@
+{
+    "pipeline": {
+        "name": "DemoCodePipeline",
+        "version": 1,
+        "roleArn": "<IAM Role ARN>",
+        "stages": [
+            {
+                "name": "CodeCommit-Stage",
+                "actions": [
+                    {
+                        "name": "CodeCommit-Action",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "AWS",
+                            "version": "1",
+                            "provider": "CodeCommit"
+                        },
+                        "configuration": {
+                            "PollForSourceChanges": "true",
+                            "RepositoryName": "<ECR RepositoryName>",
+                            "BranchName": "master"
+                        },
+                        "outputArtifacts": [
+                            {
+                              "name": "CodeCommit"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "CodeBuild-Stage",
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                              "name":"CodeCommit"
+                            }
+                        ],
+                        "name": "CodeBuild-Action",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "version": "1",
+                            "provider": "CodeBuild"
+                        },
+                        "configuration": {
+                            "ProjectName": "DemoCodeBuild"
+                        },
+                        "outputArtifacts": [
+                            {
+                              "name": "SampleApp"
+                            }
+                        ]
+                    }
+                  ]
+            },
+            {
+                "name": "CodeDeploy-Stage",
+                "actions": [
+                    {
+                        "inputArtifacts": [
+                            {
+                              "name":"SampleApp"
+                            }
+                        ],
+                        "name": "CodeDeploy-Action",
+                        "actionTypeId": {
+                            "category": "Deploy",
+                            "owner": "AWS",
+                            "version": "1",
+                            "provider": "CodeDeploy"
+                        },
+                        "configuration": {
+                            "ApplicationName": "DemoAsgApp",
+                            "DeploymentGroupName": "DemoAsgDG"
+                        }
+                   }
+                ]
+            }
+        ],
+        "artifactStore": {
+            "type": "S3",
+            "location": "<S3 Bucket Name>"
+        }
+    }
+}

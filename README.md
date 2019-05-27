@@ -64,7 +64,7 @@ origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (push
 ## CodeBuild [(Document)](https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/welcome.html)
 ___
 
-- 今回の利用用途はS3にある
+- 今回の用途は、CodeCommitで管理しているアプリケーションのソースコードをZIP化してS3にアップロードする
 
 -  CodeBuild用IAM Role作成
 
@@ -89,6 +89,8 @@ $ aws codebuild list-curated-environment-images
 
 ## CodeDeploy [(Document)](https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/welcome.html)
 ___
+
+-
 
 - CodeDeploy用IAM Role作成
 
@@ -148,4 +150,19 @@ ___
   - 検出オプションは"CloudWatch Events"を選択
     - CodeCommitに対して変更があった場合に実行される
 
--
+- CodePipeline用IAM Role作成
+
+```
+# CodePipeline用IAM Role作成
+$ aws iam create-role --role-name DemoCodePipelineRole --assume-role-policy-document file://IAM/codepipeline-role.json
+
+# CodePipeline用IAM RoleにPolicyを付与
+$ aws iam put-role-policy --role-name DemoCodePipelineRole --policy-name DemoCodePipelinePolicy --policy-document file://IAM/codepipeline-policy.json
+```
+
+- CodePipeline作成
+
+```
+# CodePipeline作成
+$ aws codepipeline create-pipeline --cli-input-json file://CodePipeline/create-pipeline.json
+```
