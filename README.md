@@ -8,6 +8,9 @@ ___
   - 作業用PCへGit(ver1.7.9以降)インストール
     - [Gitのダウンロードはこちら](https://git-scm.com/downloads)
 
+- デモのフロー図
+
+![Flow Chart][./flow_chart.png]
 
 ##  CodeCommit [(Document)](https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/welcome.html)
 ___
@@ -60,6 +63,8 @@ origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (push
 
 ## CodeBuild [(Document)](https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/welcome.html)
 ___
+
+- 今回の利用用途はS3にある
 
 -  CodeBuild用IAM Role作成
 
@@ -142,3 +147,5 @@ ___
   - ソースはCodeCommitを選択し、上記で作成したリポジトリを選択
   - 検出オプションは"CloudWatch Events"を選択
     - CodeCommitに対して変更があった場合に実行される
+
+-
