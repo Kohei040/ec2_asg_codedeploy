@@ -11,7 +11,7 @@ ___
 ##  CodeCommit [(Document)](https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/welcome.html)
 ___
 
-### CodeCommit利用(HTTPS接続)の事前準備
+#### CodeCommit利用(HTTPS接続)の事前準備
 
 -  CodeCommitアクセス用のIAM User作成
   - IAM Policyは[AWSCodeCommitFullAccess]を付与
@@ -19,7 +19,7 @@ ___
   - [IAM User] -> [認証情報] -> [AWS CodeCommit の HTTPS Git 認証情報] -> [生成]
 
 
-### CodeCommitの利用(AWS CLI)
+#### CodeCommitの利用(AWS CLI)
 
 1. CodeCommitリポジトリ作成
 
@@ -59,15 +59,27 @@ origin  https://git-codecommit.us-east-1.amazonaws.com/v1/repos/MyDemoRepo (push
 ## CodeBuild [(Document)](https://docs.aws.amazon.com/ja_jp/codebuild/latest/userguide/welcome.html)
 ___
 
-### EC2 AutoScaling環境
+#### CodeBuild用IAM Role作成
 
-- Codebuild作成
+```
+# CodeBuild用IAM Role作成
+$ aws iam create-role --role-name DemoCodebuildRole --assume-role-policy-document file://IAM/codebuild-role.json
+
+# CodeBuild用IAM RoleにPolicyを付与
+$ aws iam put-role-policy --role-name DemoCodebuildRole --policy-name DemoCodeBuildServiceRolePolicy --policy-document file://IAM/codebuild-policy.json
+```
+
+#### EC2 AutoScaling環境
+
+- Codebuild
 
 
 ## CodeDeploy [(Document)](https://docs.aws.amazon.com/ja_jp/codedeploy/latest/userguide/welcome.html)
 ___
 
 - CodeDeploy用IAM Role作成
+
+#### EC2 AutoScaling環境
 
 ```
 # ./IAM/codedeploy.jsonを基にCodeDeployのRole作成
@@ -92,8 +104,6 @@ $ aws iam create-instance-profile --instance-profile-name DemoCodeDeployEC2Profi
 $ aws iam add-role-to-instance-profile --instance-profile-name DemoCodeDeployEC2Profile --role-name DemoEC2CodeDeployRole
 ```
 
-### EC2 AutoScaling環境
-
 - EC2 AutoScaling グループの作成
 
 ```
@@ -117,18 +127,17 @@ $ aws deploy create-deployment-group --application-name DemoAsgApp --auto-scalin
 $ aws deploy create-deployment --application-name DemoAsgApp --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name DemoAsgDG --s3-location bucket=aws-codedeploy-us-east-1,bundleType=zip,key=samples/latest/SampleApp_Linux.zip
 ```
 
-### ECS環境
+#### ECS環境
 
 
 ## CodePipeline [(Document)](https://docs.aws.amazon.com/ja_jp/codepipeline/latest/userguide/welcome.html)
 ___
 
-### EC2 AutoScaling環境
-
-
-### CodePipelineの利用(Console)
+#### CodePipelineの利用(Console)
 
 - CodePipelineの作成
   - ソースはCodeCommitを選択し、上記で作成したリポジトリを選択
   - 検出オプションは"CloudWatch Events"を選択
     - CodeCommitに対して変更があった場合に実行される
+
+#### EC2 AutoScaling環境
