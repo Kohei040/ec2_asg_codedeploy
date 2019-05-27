@@ -12,7 +12,8 @@ phases:
     commands:
       - echo Entered the build phase...
       - echo Build started on `date`
-      - zip -r SampleApp.zip ./CodeDeploy/
+      - cd CodeDeploy/
+      - zip -r ../SampleApp.zip ./
     finally:
       - echo This always runs even if the install command fails
   post_build:

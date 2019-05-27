@@ -1,16 +1,26 @@
 {
-  "name": "demo-codebuild",
+  "name": "DemoCodeuild",
   "description": "Demonstration",
+  "artifacts": {
+    "type": "S3",
+    "location": "<S3 Bucket Name>",
+    "name": "CodeBUild"
+  },
   "source": {
     "type": "CODECOMMIT",
-    "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/TestIwasaki",
+    "location": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/<ECR Repository>",
     "buildspec": "./CodeBuild/buildspec.yml"
   },
   "logsConfig": {
     "cloudWatchLogs": {
       "status": "ENABLED",
-      "groupName": "demo-codebuild-iwasaki"
+      "groupName": "demo-codebuild"
     }
   },
-  "serviceRole": "demo-codebui-iwasaki-role"
+  "serviceRole": "DemoCodebuildRole",
+  "environment": {
+    "type": "LINUX_CONTAINER",
+    "image": "aws/codebuild/standard:1.0",
+    "computeType": "BUILD_GENERAL1_SMALL"
+  }
 }
