@@ -10,7 +10,7 @@ ___
 
 - デモのフロー図
 
-![Flow Chart][./flow_chart.png]
+![Flow Chart](./flow_chart.png)
 
 ##  CodeCommit [(Document)](https://docs.aws.amazon.com/ja_jp/codecommit/latest/userguide/welcome.html)
 ___
