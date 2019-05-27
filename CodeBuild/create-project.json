@@ -1,5 +1,5 @@
 {
-  "name": "DemoCodeuild",
+  "name": "DemoCodeBuild",
   "description": "Demonstration",
   "artifacts": {
     "type": "S3",

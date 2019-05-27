@@ -20,7 +20,14 @@ phases:
     commands:
       - echo Entered the post_build phase...
       - echo Build completed on `date`
+# CodeBuild単体時
+# artifacts:
+#   files:
+#     - SampleApp.zip
+#   discard-paths: yes
+# CodePipeline連携時
 artifacts:
   files:
-    - SampleApp.zip
-  discard-paths: yes
+    - '**/*'
+  base-directory: CodeDeploy
+  discard-paths: no
